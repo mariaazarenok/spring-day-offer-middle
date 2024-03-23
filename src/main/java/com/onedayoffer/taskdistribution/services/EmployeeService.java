@@ -12,7 +12,6 @@ import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
-import org.modelmapper.internal.bytebuddy.description.method.MethodDescription;
 import org.springframework.data.domain.Sort;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
@@ -20,7 +19,6 @@ import org.springframework.stereotype.Service;
 import java.lang.reflect.Type;
 import java.util.List;
 
-import static org.hibernate.Hibernate.map;
 
 
 @Service
@@ -43,14 +41,7 @@ public class EmployeeService {
         Type listType = new TypeToken<List <EmployeeDTO>>() {}.getType();
 
         return modelMapper.map(employees, listType);
-        //throw new java.lang.UnsupportedOperationException("implement getEmployees");
 
-        // if sortDirection.isPresent() ..
-        // Sort.Direction direction = ...
-        // employees = employeeRepository.findAllAndSort(Sort.by(direction, "fio"))
-        // employees = employeeRepository.findAll()
-        // Type listType = new TypeToken<List<EmployeeDTO>>() {}.getType()
-        // List<EmployeeDTO> employeeDTOS = modelMapper.map(employees, listType)
     }
 
     @Transactional
