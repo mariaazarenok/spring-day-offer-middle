@@ -4,6 +4,7 @@ import com.onedayoffer.taskdistribution.DTO.EmployeeDTO;
 import com.onedayoffer.taskdistribution.DTO.TaskDTO;
 import com.onedayoffer.taskdistribution.DTO.TaskStatus;
 import com.onedayoffer.taskdistribution.services.EmployeeService;
+import jakarta.persistence.criteria.CriteriaBuilder;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -35,17 +36,20 @@ public class EmployeeController {
         return employeeService.getTasksByEmployeeId(id);
     }
 
-    @PatchMapping("{id}/tasks/{taskId}/status")
+    @PatchMapping("{employeeId}/tasks/{taskId}/status")
     @ResponseStatus(HttpStatus.OK)
-    public void changeTaskStatus(@PathVariable Integer id
-                                          /* other PathVariable and RequestParam */ ) {
-        //TaskStatus status = TaskStatus.valueOf(newStatus);
-        //employeeService.changeTaskStatus ...
+    public void changeTaskStatus(@PathVariable Integer employeeId,
+                                 @PathVariable Integer taskId,
+                                 @RequestParam("newStatus") TaskStatus status) {
+        employeeService.changeTaskStatus(taskId, status);
     }
 
-    @PostMapping("...")
+
+    @PostMapping("{employeeId}/tasks")
     @ResponseStatus(HttpStatus.CREATED)
-    public void postNewTask(/* some params */) {
-        //employeeService.postNewTask ...
+    public void postNewTask(@PathVariable Integer employeeId,
+                            @RequestBody TaskDTO newTask) {
+        employeeService.postNewTask(employeeId, newTask);
+
     }
 }
